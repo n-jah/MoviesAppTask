@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MoviesAppTask</string>
+    <string name="tmdb_api_key">eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZTEwMjNjZDlkMzBkZDBlODA0OGVlY2FhNzNjMGJlNSIsIm5iZiI6MTczMTUyOTk4NC4xNzg4Nzk1LCJzdWIiOiI2NzM1MGMyZDJmYWZhZWM0MjU1M2ZkOTUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.EHTpcrkO0U4B2g6JHDTe8eTYyZmTA0PzpyfQvdISHLo</string>
+</resources>
