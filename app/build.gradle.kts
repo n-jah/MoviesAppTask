@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -48,4 +49,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    //gson
+    implementation(libs.gson)
+    implementation (libs.androidx.lifecycle.livedata.ktx)// or the latest version
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.room.runtime)
+
+    kapt (libs.androidx.room.compiler.v250)
+ }
