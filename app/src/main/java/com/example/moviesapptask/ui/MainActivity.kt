@@ -3,6 +3,7 @@ package com.example.moviesapptask.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -12,9 +13,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.moviesapptask.MovieDatabase
 import com.example.moviesapptask.R
 import com.example.moviesapptask.model.Movie
+import com.example.moviesapptask.model.MovieImagesResponse
 import com.example.moviesapptask.model.MoviesResponse
 import com.example.moviesapptask.model.Result
 import com.example.moviesapptask.networking.RetrofitInstance
@@ -35,15 +38,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+
+
         val moviesApi = RetrofitInstance.api
         val movieDao = MovieDatabase.getDatabase(this).movieDao()
         val moviesRepository =
             MoviesRepositoryImpl(moviesApi, movieDao)  // Make sure to initialize MoviesApi properly
         val viewModelFactory = MoviesViewModelFactory(moviesRepository)
-
         // Create ViewModel instance using ViewModelFactory
         moviesViewModel = ViewModelProvider(this, viewModelFactory).get(MoviesViewModel::class.java)
-
         // Observe LiveData for movie results
         moviesViewModel.movies.observe(this, Observer { result ->
             when (result) {
@@ -51,26 +55,24 @@ class MainActivity : AppCompatActivity() {
                     // Show loading view
                     showLoading()
                 }
-
                 is Result.Success -> {
                     // Show the list of movies
                     showMovies(result.data)
                 }
-
                 is Result.Error -> {
                     // Show the error message
                     showError(result.message)
                 }
             }
         })
-
-
         // Fetch popular movies when activity starts
-        moviesViewModel.fetchPopularMovies()
+        moviesViewModel.fetchTopRatedMovies()
         findViewById<TextView>(R.id.textView).setOnClickListener {
             moviesViewModel.getMovieDetails(912649)
             observeMovieDetails()
         }
+
+
 
     }
     private fun observeMovieDetails() {
@@ -80,19 +82,14 @@ class MainActivity : AppCompatActivity() {
                     // Show loading view
                     showLoading()
                 }
-
                 is Result.Error -> {
                     // Show the error message
                     showError(result.message)
-
                 }
                 is Result.Success -> {
-
                     showMovieDetails(result.data)
-
                 }
             }
-
         })
     }
 
@@ -100,8 +97,44 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, data?.title + " " + data?.overview, Toast.LENGTH_LONG).show()
         findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
 
+
+        loadBackdrops()
+
+
+
     }
 
+    private fun loadBackdrops() {
+
+        val movieId = 912649 // Replace with the actual movie ID
+        var url: String? = null
+        moviesViewModel.movieImages.observe(this, Observer { result ->
+
+            when (result) {
+                is Result.Loading -> {
+                    // Show loading view
+                    showLoading()
+                }
+                is Result.Error -> {
+                    // Show the error message
+                    showError(result.message)
+                }
+                is Result.Success -> {
+
+                    //@TODO if the image loaded
+
+                }
+            }
+
+
+
+        })
+
+        Glide.with(this)
+            .load("https://image.tmdb.org/t/p/w500${url.toString()}")
+            .into(findViewById(R.id.imageView))
+            .onLoadFailed(getDrawable(android.R.drawable.stat_notify_error))
+    }
 
     private fun showLoading() {
         findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
@@ -121,16 +154,13 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("Movies", buffor.toString())
 
-
         findViewById<TextView>(R.id.textView).text = buffor.toString()
 
     }
 
     private fun showError(message: String?) {
-        // Hide the loading spinner
         findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
 
-        // Display an error message (Toast, Snackbar, etc.)
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

@@ -58,6 +58,7 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.room.runtime)
     implementation (libs.androidx.room.ktx)
-
+    implementation (libs.glide) // For image loading
+    kapt (libs.compiler) // Use kapt for Kotlin
     kapt (libs.androidx.room.compiler.v250)
  }
