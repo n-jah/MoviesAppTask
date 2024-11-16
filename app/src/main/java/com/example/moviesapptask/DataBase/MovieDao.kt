@@ -1,4 +1,4 @@
-package com.example.moviesapptask
+package com.example.moviesapptask.DataBase
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,0 +1,75 @@
+<!-- res/layout/fragment_movie_details.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.MovieDetailsFragment">
+
+    <!-- Movie Poster -->
+    <ImageView
+        android:id="@+id/imageViewPoster"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_launcher_background"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- Movie Title -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:text="@string/movie_title"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+
+            android:id="@+id/textViewVote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            android:text="@string/vote"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!-- Movie Overview (Description) -->
+    <TextView
+
+        android:layout_marginTop="20dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
+        android:id="@+id/textViewOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/movie_overview"
+        android:minLines="5"
+        />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/realse_date"
+        android:textSize="13sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="monospace"
+        android:id="@+id/textViewReleaseDate"
+        />
+
+</LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.moviesapptask.repository
 
-import android.util.Log
-import com.example.moviesapptask.MovieDao
+import com.example.moviesapptask.DataBase.MovieDao
 import com.example.moviesapptask.model.Movie
 import com.example.moviesapptask.model.MovieImagesResponse
 import com.example.moviesapptask.model.MoviesResponse

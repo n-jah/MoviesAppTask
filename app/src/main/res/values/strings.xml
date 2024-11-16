@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">MoviesAppTask</string>
     <string name="tmdb_api_key">eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZTEwMjNjZDlkMzBkZDBlODA0OGVlY2FhNzNjMGJlNSIsIm5iZiI6MTczMTUyOTk4NC4xNzg4Nzk1LCJzdWIiOiI2NzM1MGMyZDJmYWZhZWM0MjU1M2ZkOTUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.EHTpcrkO0U4B2g6JHDTe8eTYyZmTA0PzpyfQvdISHLo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">search\n</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="vote">vote</string>
+    <string name="avragevote">vote: %1$s</string>
+    <string name="movie_overview">overview</string>
+    <string name="realse_date">realse_Date</string>
+    <string name="release_date">"Release Date : "</string>
 </resources>
