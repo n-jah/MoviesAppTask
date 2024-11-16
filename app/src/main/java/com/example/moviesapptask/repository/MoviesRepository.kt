@@ -9,4 +9,5 @@ interface MoviesRepository {
 
     suspend fun getPopularMovies(): Result<MoviesResponse>
     suspend fun getMovieDetails(movieId: Int): Result<Movie>
+
 }

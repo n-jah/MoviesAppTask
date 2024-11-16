@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.moviesapptask.MovieDatabase
 import com.example.moviesapptask.R
 import com.example.moviesapptask.model.Movie
 import com.example.moviesapptask.model.MoviesResponse
@@ -35,8 +36,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         val moviesApi = RetrofitInstance.api
+        val movieDao = MovieDatabase.getDatabase(this).movieDao()
         val moviesRepository =
-            MoviesRepositoryImpl(moviesApi)  // Make sure to initialize MoviesApi properly
+            MoviesRepositoryImpl(moviesApi, movieDao)  // Make sure to initialize MoviesApi properly
         val viewModelFactory = MoviesViewModelFactory(moviesRepository)
 
         // Create ViewModel instance using ViewModelFactory
