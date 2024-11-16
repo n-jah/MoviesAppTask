@@ -57,6 +57,7 @@ dependencies {
     implementation (libs.androidx.lifecycle.livedata.ktx)// or the latest version
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.room.runtime)
+    implementation (libs.androidx.room.ktx)
 
     kapt (libs.androidx.room.compiler.v250)
  }
