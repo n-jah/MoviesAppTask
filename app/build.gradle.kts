@@ -64,4 +64,5 @@ dependencies {
     implementation (libs.glide) // For image loading
     kapt (libs.compiler) // Use kapt for Kotlin
     kapt (libs.androidx.room.compiler.v250)
- }
+
+}

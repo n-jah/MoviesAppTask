@@ -4,27 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
     tools:context=".ui.HomeFragment">
 
     <!-- AppBarLayout for Toolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_marginTop="20dp"
 
-<!--        &lt;!&ndash; Toolbar &ndash;&gt;-->
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="?attr/colorPrimary"-->
-<!--            app:title="Movies"-->
-<!--            app:titleTextColor="@android:color/white" />-->
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <!-- TabLayout and Search Icon -->
         <LinearLayout
             android:id="@+id/tab_search_layout"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -33,6 +26,8 @@
             android:paddingStart="8dp">
 
             <!-- TabLayout -->
+
+
 
             <!-- Search Icon -->
             <com.google.android.material.tabs.TabLayout
@@ -68,6 +63,7 @@
 
     <!-- RecyclerView for Movie List -->
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="20dp"
         android:id="@+id/recycler_view_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

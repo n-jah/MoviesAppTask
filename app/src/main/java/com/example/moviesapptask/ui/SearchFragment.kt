@@ -1,19 +1,15 @@
 package com.example.moviesapptask.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesapptask.DataBase.MovieDatabase
 import com.example.moviesapptask.R
-import com.example.moviesapptask.databinding.FragmentHomeBinding
 import com.example.moviesapptask.databinding.FragmentSearchBinding
 import com.example.moviesapptask.model.Movie
 import com.example.moviesapptask.model.Result
@@ -48,9 +44,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.searchView.requestFocus()
 
 
-
         // Set up SearchView listener to listen for user input
-        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     if (it.isNotEmpty()) {
@@ -74,6 +70,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         return binding.root
     }
+
     private fun initViewModel() {
         val moviesApi = RetrofitInstance.api
         val movieDao = MovieDatabase.getDatabase(requireContext()).movieDao()
@@ -81,6 +78,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val viewModelFactory = MoviesViewModelFactory(moviesRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MoviesViewModel::class.java]
     }
+
     private fun setupRecyclerView() {
 
         movieAdapter = MovieAdapter { movie -> openDetails(movie) }
@@ -109,10 +107,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     }
                     binding.progressBar2.visibility = View.GONE
                 }
+
                 is Result.Error -> {
                     binding.progressBar2.visibility = View.GONE
                     Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
                 }
+
                 is Result.Loading -> {
                     // Handle loading state if needed
 
