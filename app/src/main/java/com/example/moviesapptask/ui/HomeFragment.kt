@@ -1,5 +1,6 @@
 package com.example.moviesapptask.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -23,7 +24,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var viewModel: MoviesViewModel
     private lateinit var movieAdapter: MovieAdapter
 
@@ -88,6 +88,29 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupTabs() {
+        val isNightMode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            resources.configuration.isNightModeActive
+        } else {
+            // For older versions, assuming light mode as default (or you can provide another fallback)
+            false
+        }
+
+        val selectedTabIndicatorColor = if (isNightMode) {
+            resources.getColor(R.color.white, null)  // Use white for dark mode
+        } else {
+            resources.getColor(R.color.black, null)  // Use black for light mode
+        }
+
+        binding.tabLayout.setSelectedTabIndicatorColor(selectedTabIndicatorColor)
+
+        val selectedTextColor = if (isNightMode) {
+            resources.getColor(R.color.white, null)  // Use white for dark mode
+        } else {
+            resources.getColor(R.color.black, null)  // Use black for light mode
+        }
+
+        binding.tabLayout.setTabTextColors( resources.getColor(android.R.color.darker_gray), selectedTextColor)
+
         val categories = listOf(
             "Popular" to "popular",
             "Top Rated" to "top_rated",
@@ -141,7 +164,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun showError(message: String?) {
         binding.progressBar.visibility = View.GONE
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context,"aaaa"+ message, Toast.LENGTH_LONG).show()
     }
 
     private fun showLoading() {

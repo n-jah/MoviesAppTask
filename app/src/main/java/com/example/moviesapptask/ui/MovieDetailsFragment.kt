@@ -35,26 +35,35 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     ): View {
         _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
-        // Initialize ViewModel
-        initViewModel()
         // Get the movie data from arguments
         val movie = arguments?.getParcelable<Movie>("movie")
 
         if (movie == null) {
             Toast.makeText(requireContext(), "Movie data is missing", Toast.LENGTH_SHORT).show()
             return binding.root
-        }
-        binding.imageViewPoster.visibility = View.VISIBLE
-        Glide.with(this).load("https://image.tmdb.org/t/p/w500/${movie.poster_path.toString()}")
-            .diskCacheStrategy(DiskCacheStrategy.ALL).into(binding.imageViewPoster)
 
+        }
+        binding.viewPagerImages.visibility = View.GONE
+        movie.let {
+            if (it.release_date.toString().isBlank()) {
+                binding.textViewReleaseDate.visibility = View.GONE
+            } else {
+                binding.textViewReleaseDate.visibility = View.VISIBLE
+                binding.textViewReleaseDate.text = "Release Date: ${movie.release_date.toString()}"
+            }
+            binding.textViewTitle.text = movie.title
+            binding.textViewVote.text = getString(R.string.avragevote, movie.vote_average.toString())
+            binding.textViewOverview.text = movie.overview
+            val imageUrl = "https://image.tmdb.org/t/p/w500${it.poster_path.toString()}"
+            Glide.with(this).load(imageUrl).into(binding.imageViewPoster)
+        }
+        // Initialize ViewModel
+        initViewModel()
         // Initialize ViewPager2 adapter
         imagesAdapter = ImagesPagerAdapter(emptyList())
         binding.viewPagerImages.adapter = imagesAdapter
 
-
         // Display movie details and fetch movie images
-        setupMovieDetails(movie)
         fetchMovieImages(movie.id)
 
         // Handle back press manually
@@ -75,18 +84,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         viewModel = ViewModelProvider(this, viewModelFactory)[MoviesViewModel::class.java]
     }
 
-    private fun setupMovieDetails(movie: Movie) {
-        binding.textViewTitle.text = movie.title
-        binding.textViewVote.text = getString(R.string.avragevote, movie.vote_average.toString())
-        binding.textViewOverview.text = movie.overview
-
-        if (movie.release_date.toString().isBlank()) {
-            binding.textViewReleaseDate.visibility = View.GONE
-        } else {
-            binding.textViewReleaseDate.visibility = View.VISIBLE
-            binding.textViewReleaseDate.text = "Release Date: ${movie.release_date.toString()}"
-        }
-    }
 
     private fun fetchMovieImages(movieId: Int) {
         // Fetch and observe images
@@ -95,7 +92,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             when (result) {
                 is Result.Success -> handleImageSuccess(result.data?.backdrops?.map { it.file_path })
                 is Result.Error -> handleImageError(result.message)
-                is Result.Loading -> handleImageLoading()
+                is Result.Loading -> true
             }
         }
     }
@@ -114,27 +111,9 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     private fun handleImageError(message: String?) {
         Toast.makeText(requireContext(), "Error fetching images: $message", Toast.LENGTH_SHORT).show()
         binding.viewPagerImages.visibility = View.GONE
-
         binding.imageViewPoster.visibility = View.VISIBLE
-        val posterPath = arguments?.getParcelable<Movie>("movie")?.poster_path
-        // Show the default poster image
-        Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500/$posterPath")
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.imageViewPoster)
-
     }
 
-    private fun handleImageLoading() {
-        // Optionally show a loading indicator
-        binding.viewPagerImages.visibility = View.GONE
-        binding.imageViewPoster.visibility = View.VISIBLE
-        // Show the default poster image
-        Glide.with(this)
-            .load("https://image.tmdb.org/t/p/w500/${arguments?.getParcelable<Movie>("movie")?.poster_path.toString()}")
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.imageViewPoster)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

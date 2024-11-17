@@ -14,7 +14,7 @@
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:layout_marginBottom="16dp"
-        android:visibility="gone"
+
         />
 
     <androidx.viewpager2.widget.ViewPager2
