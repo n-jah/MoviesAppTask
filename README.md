@@ -6,8 +6,6 @@ This is a Movie List Application that allows users to browse movies by category,
 ## Screenshots
 
 
-## Screenshots
-
 ### Movie List App Screenshots
 
 <p align="center">
